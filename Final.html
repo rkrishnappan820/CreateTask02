@@ -1,0 +1,428 @@
+<html>
+<head>
+      <title>Super Mario Kart Game</title>
+      <script>
+        var score = 0;
+        var pics = ["<img src = 'is.jpg' >","<img src = 'lu.jpg'>","<img src = 'yosh.jpg'>","<img src = 'war.jpg'>","<img src = 'wal.jpg'>" ];
+        var solutions = ["Isabella", "Luigi", "Yoshi","Wario", "Waluigi" ];
+        var answers = [];//Populate this with user answers
+        var index = 0;//add one to this in getUserAnswers to advance
+        var table = ""; //this gets created in the displayResult() function
+
+          function init()
+          {
+            document.getElementById("score").innerHTML = "Points: "+score + "/5";
+            document.getElementById("but2").style.visibility = "hidden";
+            document.getElementById("point").style.visibility = "hidden";
+            document.getElementById("bonusQu").style.visibility = "hidden";
+            document.getElementById("BonusClick").style.visibility = "hidden";
+            document.getElementById("flag").innerHTML=pics[0];
+
+          }
+
+          function sound(src) {
+              this.sound = document.createElement("audio");
+              this.sound.src = src;
+              this.sound.setAttribute("preload", "auto");
+              this.sound.setAttribute("controls", "none");
+              this.sound.style.display = "none";
+              document.body.appendChild(this.sound);
+              this.play = function(){
+                  this.sound.play();
+              }
+              this.stop = function(){
+                  this.sound.pause();
+              }
+          }
+
+          function getUserAnswers()
+          {
+            document.getElementById("but2").style.visibility = "hidden";
+
+              answers[answers.length] = document.getElementById("answer").value;
+
+              //var CorrectResult = "Answer is equal to: " + solutions[answers.length-1] +"<br>";
+              if (document.getElementById("answer").value !== solutions[answers.length-1]) {
+              // alert("1");
+                var boxNumber = "box"+answers.length;
+                //alert("2");
+                document.getElementById(boxNumber).style.visibility = "hidden";
+                //alert("3");
+                document.getElementById("score").innerHTML = " Points: "+score + "/5";
+                var BadSound = new sound("fail-trumpet-01.mp3");
+                BadSound.play();
+                var WrongResult = "Oh No! The Answer You entered was incorrect, You have lost a prize. The answer was " + solutions[answers.length-1] +"<br>";
+                document.getElementById("output0").innerHTML = WrongResult;
+               //alert("4");
+              }
+
+              else {
+                var GoodSound = new sound("Ding-sound-effect.mp3");
+                GoodSound.play();
+                score = score + 1;
+                document.getElementById("score").innerHTML = " Points: "+score + "/5";
+                var CorrectResult = "WoW! Your Answer was correct! You have gained a point! The Answer was " + solutions[answers.length-1] +"<br>";
+                  document.getElementById("output0").innerHTML = CorrectResult;
+                // alert("5");
+              }
+
+            //  document.getElementById("output0").innerHTML = result;
+
+              if (answers.length < 5) {
+                document.getElementById("flag").innerHTML=pics[answers.length];
+
+              }
+              else {
+                displayResult();
+                document.getElementById("but2").style.visibility = "visible";
+                document.getElementById("point").style.visibility = "visible";
+                document.getElementById("prev").style.visibility = "hidden";
+                document.getElementById("next").style.visibility = "hidden";
+
+
+
+                //document.getElementById("flag").innerHTML=pics[0];
+              }
+
+          }
+
+          function displayResult()
+            {
+
+              score = 0;
+              var counter = 0;
+              for(var i = 0; i < pics.length; i++ )
+              {
+                if(solutions[i] == answers[i])
+                {
+                  score = score + 1;
+                  counter = counter + 0
+
+                }
+                else if (solutions[i] !== answers[i])
+                 {
+                   score = score + 0;
+
+                   if (solutions[i] === "Isabella") {
+                     counter = counter + 1;
+                    document.getElementById("box1").style.visibility = "hidden";
+                   }
+
+                   if (solutions[i] === "Luigi") {
+                      counter = counter + 1;
+                    document.getElementById("box2").style.visibility = "hidden";
+                   }
+
+                   if (solutions[i] === "Yoshi") {
+                      counter = counter + 1;
+                    document.getElementById("box3").style.visibility = "hidden";
+                   }
+
+                   if (solutions[i] === "Wario") {
+                      counter = counter + 1;
+                    document.getElementById("box4").style.visibility = "hidden";
+                   }
+
+                   if (solutions[i] === "Waluigi") {
+                      counter = counter + 1;
+                    document.getElementById("box5").style.visibility = "hidden";
+                   }
+                }
+
+              }
+
+             print(counter);
+            //    if (solutions[0] == answers[0]){
+              //    score = score + 100;
+                //}
+                //if (solutions[1] == answers[1]){
+                  //score = score + 100;
+                //}if (solutions[2] == answers[2]){
+                //  score = score + 100;
+              //  }if (solutions[3] == answers[3]){
+                //  score = score + 100;
+                //}if (solutions[4] == answers[4]){
+                  //score = score + 100;
+            }
+
+            function print(counter)
+            {
+              var results = "******RESULTS*****" + "<hr>"
+              results = "<br>" +results + "Your Score: " + score +"/5"+"<br>";
+              results = "<br>" +results +  "Answer 1: " + solutions[0] + " YOUR Answer: " + answers[0]+"<br>";
+              results = "<br>" +results +  "Answer 2: " + solutions[1] + " YOUR Answer: " + answers[1]+"<br>";
+              results = "<br>" +results +  "Answer 3: " + solutions[2] + " YOUR Answer: " + answers[2]+"<br>";
+              results = "<br>" +results +  "Answer 4: " + solutions[3] + " YOUR Answer: " + answers[3]+"<br>";
+              results = "<br>" +results +  "Answer 5: " + solutions[4] + " YOUR Answer: " + answers[4]+"<br>";
+              results = "<br>" +results;
+              document.getElementById("output").innerHTML = results;
+              //Your Score:  4/5
+              //Answer 1: Cat  Your Answer: Cat
+              //Answer 2: Dog  Your Answer: Dog
+              //Answer 3: Fish  Your Answer: Fish
+              //Answer 4: Camel  Your Answer: Camel
+              //Answer 5: Griaffe  Your Answer: ajkdjahdk
+              //reset();
+
+              var prize = ["Coins","Blue Shells","Red Shells","Bananas"];
+              var prize2 = ["Triple Red Shells","Multi Bananas", "Starmans","Golden Mushrooms"];
+              var prize3 = ["Bob-ombs","Triple Mushrooms", "Piranha Plants","Crazy 8s"];
+              var prize4 = ["Thunder Clouds","Mega Mushrooms", "Feathers","Banana Barrels"];
+              var prize5 = ["Crazy 8s","Bob-omb Cannons", "Super leafs","Rocket Boost"];
+              var random = parseInt(Math.random()*4);
+              var res = prize[random];
+              var res2 = prize2[random];
+              var res3 = prize3[random];
+              var res4 = prize4[random];
+              var res5 = prize5[random];
+
+              if(counter == 0)
+              {
+
+                document.getElementById("output2").innerHTML = "Great Job, You have earned 5 prizes. You have won: Some " +res+ ", Some " +res2+ ", Some " +res3+ ", Some " +res4+ ",and Some " +res5;
+
+              }
+
+               if(counter == 1)
+               {
+                 document.getElementById("output2").innerHTML = "Great Job, You have earned 4 prizes. You have won: Some " +res+ ", Some " +res2+ ", Some " +res3+ ",and Some " +res4;
+               }
+
+            if(counter == 2)
+            {
+              document.getElementById("output2").innerHTML = "Great Job, You have earned 3 prizes. You have won: Some " +res+ ", Some " +res2+ ", and Some " +res3;
+            }
+            if(counter == 3)
+            {
+              document.getElementById("output2").innerHTML = "You could of done better, You have earned 2 prizes. You have won: Some " +res+ " and Some " +res2;
+            }
+            if(counter == 4)
+            {
+              document.getElementById("output2").innerHTML = "You could of done better, You have earned 1 prizes. You have won: Some " +res;
+            }
+            if(counter == 5)
+
+            {
+
+              document.getElementById("output2").innerHTML = "Bad Job, You have earned 0 prizes. You have won: Nothing";
+            }
+
+
+            }
+
+            function reset()
+           {
+             //score = 0;
+             //index = 0;
+             //for(var i = answers.length -1; i >= 0; i--)
+             //{
+             //answers.splice(i,1);
+            //}
+          location.reload();
+            //sets the user's answer array back to empty using .splice
+            //score = 0
+            //index  = 0 so that you start on the first picture again
+
+          }
+
+          function point()
+          {
+            document.getElementById("output0").innerHTML = "";
+            document.getElementById("output2").innerHTML = "";
+            document.getElementById("output").innerHTML = "";
+            document.getElementById("output5").innerHTML = "Your CURRENT score was "+score+"/5, awnser the question correctly to add an additonal point back to YOUR score!";
+            var bonus = ["True or False, King-Boo is one of the racers you can select in Mario Kart 8?","True of False, Silver-Mario is one of the racers you can select in Mario Kart 8?"];
+            var BonusRand = parseInt(Math.random()*2);
+            var  qu = bonus[BonusRand];
+
+            document.getElementById("output0").innerHTML = qu;
+            document.getElementById("bonusQu").style.visibility = "visible";
+            document.getElementById("BonusClick").style.visibility = "visible";
+            document.getElementById("answer").style.visibility = "hidden";
+            //var trueFalse = trueFalse + 0;
+            document.getElementById("bonusQu").value =  '';
+           //CheckBonus(trueFalse);
+
+          //  document.getElementById("output0").innerHTML = score;
+
+          }
+
+          function CheckBonus()
+          {
+            var trueFalse = document.getElementById("bonusQu").value;
+
+           if(trueFalse === "true" || trueFalse === "True")
+           {
+             score = score + 1;
+             document.getElementById("output9").innerHTML = "Congrats! You have just earned a bonus point! Now you have a score of "+score+" /5";
+             document.getElementById("point").style.visibility = "hidden"
+             document.getElementById("BonusClick").style.visibility = "hidden"
+             document.getElementById("bonusQu").style.visibility = "hidden"
+             document.getElementById("score").innerHTML = "                                                                                                                                        Points: "+score + " /5";
+
+           }
+           else if (trueFalse === "false" || trueFalse === "False" || trueFalse !== "true")
+            {
+             document.getElementById("output9").innerHTML = "Oh No! You selected the WRONG anwser, You did NOT gain nor lose any points. You stil have "+score+" /5 points"
+              document.getElementById("point").style.visibility = "hidden"
+              document.getElementById("BonusClick").style.visibility = "hidden"
+              document.getElementById("bonusQu").style.visibility = "hidden"
+
+           }
+
+          }
+
+      </script>
+      <style>
+      #box1,#box2,#box3,#box4,#box5{
+        width: 40px;
+        height: 40px;
+        float: right;
+        border-radius: 77;
+        margin-right: 35;
+        border-radius: 0;
+        border: 0 solid white;
+
+
+      }
+      img{
+        width: 550;
+        height: 300;
+       padding-top: -500;
+        margin: auto;
+        display: block;
+        border-radius: 55px;
+        border: 3px solid #6b5b95;
+
+
+
+
+
+
+      }
+      body{
+        text-align: center;
+  background-color: #feb236;
+
+
+      }
+      h1{
+        font-size: 36px;
+        color: #6b5b95;
+        font-weight: bold;
+        font-family: cursive;
+      }
+      hr{
+        border: 1px dotted black;
+      }
+
+
+
+
+
+#line {
+    border: 1px solid black;
+}
+
+#but,#but2{
+  border-radius: 6px;
+  background-color: #f7cac9;
+}
+
+
+
+#output0{
+  color:#6b5b95;
+  font-size: 30px;
+
+}
+
+#score{
+  float: left;
+  color: #d64161;
+  font-size: 30;
+  font-weight: bold;
+}
+
+#BonusClick,#point,#prev,#next,#but2{
+  background-color: #d64161;
+  border-radius: 12px;
+  color: white;
+   border: 2px solid #6b5b95;
+}
+#answer,#bonusQu{
+  color: #d64161;
+border-radius: 5px;
+width: 200;
+height: 25;
+font-size: 16;
+}
+
+#BonusClick:hover,#point:hover,#prev:hover,#next:hover,#but2:hover {
+background-color:red ;
+}
+
+#output5{
+  color: #d64161;
+  font-size: 25;
+}
+
+#output9{
+  color: #d64161;
+  font-size: 25;
+}
+#output{
+  color: #d64161;
+  font-size: 35;
+  font-weight: bold;
+
+}
+#output2{
+  color: #6b5b95;
+  font-size: 40;
+  font-weight: bold;
+}
+
+
+      </style>
+    </head>
+
+      <body onload="init()"><!--This is how you call something right away-->
+       <!--You Complete HTML-->
+     <h1>✦✦The Super Mario Kart Guessing Game✦✦</h1>
+
+       <hr id = line>
+       <span id = "score"></span>
+       <img src = "box.png" id= "box1">
+       <img src = "box.png" id= "box2">
+       <img src = "box.png" id= "box3">
+       <img src = "box.png" id= "box4">
+       <img src = "box.png" id= "box5">
+       <br>
+      <span id="flag"></span>
+       <br><br>
+       <input type="button" id="point" value="Earn point back?" onclick="point()">
+        <input type="button" id="prev" value="Previous" onclick="Previous()">
+       <input type="text" id="answer" placeholder="Guess the Character">
+       <input type="button" id="next" value="Next" onclick="getUserAnswers()">
+       <input type="button" id="but2" value="Play Again?" onclick="reset()">
+
+       <br><br><br><br>
+<span id ="output5"></span>
+<br>
+<span id ="output0"></span>
+<span id ="output0.7"></span>
+<br>
+<span id ="output9"></span>
+
+<br>
+<input type="text" id="bonusQu" placeholder="True or False">
+  <input type="button" id="BonusClick" value="Submit" onclick="CheckBonus()">
+       <span id ="output"></span>
+       <span id ="output2"></span>
+       <span id ="output3"></span>
+
+       <span id ="output4"></span>
+
+    </body>
+</html>
